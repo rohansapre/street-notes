@@ -10,8 +10,12 @@ import {
   Image,
   Alert,
   View,
+  Button
 } from 'react-native';
 import {Actions, ActionConst} from 'react-native-router-flux';
+
+import { StackNavigator } from 'react-navigation';
+
 
 import spinner from '../images/loading.gif';
 
@@ -47,7 +51,7 @@ export default class ButtonSubmit extends Component {
     }, 2000);
 
     setTimeout(() => {
-      Actions.secondScreen();
+      this.props.navigation.navigate('Details');
       this.setState({isLoading: false});
       this.buttonAnimated.setValue(0);
       this.growAnimated.setValue(0);
@@ -63,6 +67,7 @@ export default class ButtonSubmit extends Component {
   }
 
   render() {
+    const {navigate} = this.props.navigation;
     const changeWidth = this.buttonAnimated.interpolate({
       inputRange: [0, 1],
       outputRange: [DEVICE_WIDTH - MARGIN, MARGIN],
@@ -74,21 +79,17 @@ export default class ButtonSubmit extends Component {
 
     return (
       <View style={styles.container}>
-        <Animated.View style={{width: changeWidth}}>
-          <TouchableOpacity
+          <Button
+          title='Login'
             style={styles.button}
-            onPress={this._onPress}
+            // onPress={() => navigate('Details')}
             activeOpacity={1}>
             {this.state.isLoading ? (
               <Image source={spinner} style={styles.image} />
             ) : (
               <Text style={styles.text}>LOGIN</Text>
             )}
-          </TouchableOpacity>
-          <Animated.View
-            style={[styles.circle, {transform: [{scale: changeScale}]}]}
-          />
-        </Animated.View>
+          </Button>
       </View>
     );
   }
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#005377',
+    backgroundColor: '#2DD2CD',
     height: MARGIN,
     borderRadius: 20,
     zIndex: 100,
@@ -114,11 +115,11 @@ const styles = StyleSheet.create({
     width: MARGIN,
     marginTop: -MARGIN,
     borderWidth: 1,
-    borderColor: '#005377',
+    borderColor: '#2DD2CD',
     borderRadius: 100,
     alignSelf: 'center',
     zIndex: 99,
-    backgroundColor: '#005377',
+    backgroundColor: '#2DD2CD',
   },
   text: {
     color: 'white',

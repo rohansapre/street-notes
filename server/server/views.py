@@ -3,14 +3,15 @@ from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from twilio.rest import Client
 import os
 from models import *
-
+import json
 
 def get_artist_profile(request, artist_id):
-	return JsonResponse({})
-
+	artist = Artist.objects.filter(id=artist_id)
+	return JsonResponse({json.dumps(artist)})
 
 def get_news_feed(request):
-	return JsonResponse({})
+	posts = Post.objects.all().order_by("-upload_date")[:10]
+	return JsonResponse({json.dumps(posts)})
 
 
 def donate(request):

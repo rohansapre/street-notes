@@ -6,10 +6,45 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	. "./config"
+	. "street-notes/server/config"
 )
 
 var config = Config{}
+
+// GET: Fetch a post
+func GetPost(w http.ResponseWriter, r *http.Request) {	
+	respondWithJson(w, http.StatusOK, r.URL.Query())
+}
+
+// GET: Fetch the artist profile
+func GetArtistProfile(w http.ResponseWriter, r *http.Request) {	
+	respondWithJson(w, http.StatusOK, r.URL.Query())
+}
+
+// GET: Fetch the news feed
+func GetFeed(w http.ResponseWriter, r *http.Request) {	
+	respondWithJson(w, http.StatusOK, r)
+}
+
+// POST: Upload a post
+func UploadPost(w http.ResponseWriter, r *http.Request) {
+	respondWithJson(w, http.StatusOK, r)
+}
+
+// POST: Donate to artist
+func Donate(w http.ResponseWriter, r *http.Request) {
+	respondWithJson(w, http.StatusOK, r)
+}
+
+// POST: Subscribe to artist
+func Subscribe(w http.ResponseWriter, r *http.Request) {
+	respondWithJson(w, http.StatusOK, r)
+}
+
+// POST: Artist broadcasts to subscribers
+func BroadcastMessage(w http.ResponseWriter, r *http.Request) {
+	respondWithJson(w, http.StatusOK, r)
+}
 
 // Test GET request
 func TestEndPoint(w http.ResponseWriter, r *http.Request) {	
@@ -35,9 +70,17 @@ func init() {
 // Define HTTP request routes
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/test", TestEndPoint).Methods("GET")
 
-	if err := http.ListenAndServe(":3000", r); err != nil {
+	r.HandleFunc("/artist", GetArtistProfile).Methods("GET")
+	r.HandleFunc("/feed", GetFeed).Methods("GET")
+	r.HandleFunc("/post", GetPost).Methods("GET")
+	r.HandleFunc("/test", TestEndPoint).Methods("GET")
+	r.HandleFunc("/upload", UploadPost).Methods("POST")
+	r.HandleFunc("/donate", Donate).Methods("POST")
+	r.HandleFunc("/subscribe", Subscribe).Methods("POST")
+	r.HandleFunc("/broadcast", BroadcastMessage).Methods("POST")
+
+	if err := http.ListenAndServe(":8000", r); err != nil {
 		log.Fatal(err)
 	}
 }

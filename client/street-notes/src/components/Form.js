@@ -10,6 +10,8 @@ import {
   Image,
 } from 'react-native';
 
+import { StackNavigator } from 'react-navigation';
+
 import UserInput from './UserInput';
 import ButtonSubmit from './ButtonSubmit';
 import SignupSection from './SignupSection';
@@ -71,11 +73,12 @@ const styles = StyleSheet.create({
     marginTop: 100,
     flex: 1,
     alignItems: 'center',
+
   },
   btnEye: {
-    position: 'relative',
-    top: -15,
-    right: 28,
+    position: 'absolute',
+    top: 102,
+    right: 30,
   },
   iconEye: {
     width: 25,

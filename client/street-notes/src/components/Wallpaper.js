@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Dimensions from 'Dimensions';
 import {StyleSheet, Image, ImageBackground} from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
-import bgSrc from '../images/wallpaper.jpg';
+import bgSrc from '../images/wallpaper.jpeg';
 
 export default class Wallpaper extends Component {
   render() {

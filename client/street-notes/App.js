@@ -14,6 +14,7 @@ import { StackNavigator } from 'react-navigation';
 
 // import Main from './src/components/main';
 // import Logo from './src/components/Logo';
+import NewsFeed from './src/components/NewsFeed';
 import SecondScreen from './src/components/SecondScreen';
 import ThirdScreen from './src/components/ThridScreen';
 
@@ -65,7 +66,7 @@ const RootStack = StackNavigator(
    }
     },
     Details: {
-      screen: SecondScreen,
+      screen: NewsFeed,
       navigationOptions: {
      headerTitle: 'FEED',
    }

@@ -21,6 +21,9 @@ import ThirdScreen from './src/components/ThridScreen';
 
 import Form from './src/components/Form';
 import Wallpaper from './src/components/Wallpaper';
+import PlaybackPage from './src/components/PlaybackPage'
+import ProfilePage from './src/components/ArtistAbout'
+
 // import ButtonSubmit from './src/components/ButtonSubmit';
 // import SignupSection from './SignupSection';
 import Logo from './src/components/Logo'
@@ -37,6 +40,11 @@ class LoginScreen extends React.Component {
           title='LOGIN'
           style={styles.button_style}
           onPress={() => navigation.navigate('Details', {})}/>
+          <Button
+
+            title='View Profile'
+            style={styles.button_style}
+            onPress={() => navigation.navigate('Profile', {})}/>
       </Wallpaper>
     );
   }
@@ -67,14 +75,20 @@ const RootStack = StackNavigator(
     },
     Details: {
       screen: NewsFeed,
-      navigationOptions: {
-     headerTitle: 'FEED',
-   }
+   //    navigationOptions: {
+   //   headerTitle: 'FEED',
+   // }
     },
-    Feed: {
-      screen: ThirdScreen,
+    Video: {
+      screen: PlaybackPage,
       navigationOptions: {
      headerTitle: 'Video',
+   }
+    },
+    Profile: {
+      screen: ProfilePage,
+      navigationOptions: {
+     headerTitle: 'Profile',
    }
     },
   },

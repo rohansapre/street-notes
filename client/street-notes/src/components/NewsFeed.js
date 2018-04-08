@@ -13,13 +13,48 @@ import ProgressBar from './ProgessBar';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
+
 export default class NewsFeed extends Component {
+
+
+	static navigationOptions = {
+	headerTitle: 'Feed',
+	headerRight: (
+		<Button
+			onPress={() => alert('This is a button!')}
+			title="Info"
+			color="#000"
+		/>
+	),};
+
    	constructor(props) {
-		super(props);
+			super(props);
 		// const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+		this.stories = [
+			{title : 'Title 1',
+			topicName: 'topic 1',
+			imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
+			stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
+		},
+			{title : 'Title 2',
+			topicName: 'topic 2',
+			imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
+			stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
+		},
+			{title : 'Title 3',
+			topicName: 'topic 3',
+			imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
+			stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
+		},
+			{title : 'Title 4',
+			topicName: 'topic 4',
+			imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
+			stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
+		}];
 		this.state = {
 			isLoading: true,
 			dataSource: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+															.cloneWithRows(this.stories)
 		}
 	}
 
@@ -37,42 +72,47 @@ export default class NewsFeed extends Component {
 	}
 	componentDidMount() {
 		var self = this;
-		var stories = [
-			{title : 'Title 1',
-			topicName: 'topic 1',
-			imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
-			stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
-		},
-		{title : 'Title 2',
-		topicName: 'topic 2',
-		imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
-		stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
-	},	{title : 'Title 3',
-		topicName: 'topic 3',
-		imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
-		stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
-	},
-	{title : 'Title 4',
-	topicName: 'topic 4',
-	imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
-	stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
-}];
-	this.setState({
-		dataSource: this.state.dataSource.cloneWithRows(stories),
-		isLoading: false
-	});
-		// setTimeout(function () {
-		// 	self.setState({ isLoading: false });
-		// }, 1);
-	}
+		// var stories = [
+		// 	{title : 'Title 1',
+		// 	topicName: 'topic 1',
+		// 	imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
+		// 	stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
+		// },
+		// 	{title : 'Title 2',
+		// 	topicName: 'topic 2',
+		// 	imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
+		// 	stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
+		// },
+		// 	{title : 'Title 3',
+		// 	topicName: 'topic 3',
+		// 	imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
+		// 	stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
+		// },
+		// 	{title : 'Title 4',
+		// 	topicName: 'topic 4',
+		// 	imageurl: 'https://www.gstatic.com/webp/gallery3/1.png',
+		// 	stories: 'STOTOTTOTOTOTOTO TPOTOTOTTOTO'
+		// }];
+		this.setState({
+		// 	// dataSource: this.state.dataSource.cloneWithRows(stories),
+			isLoading: false
+		});
+		setTimeout(function () {
+			self.setState({ isLoading: false });
+		}, 1);
+
+		}
+
     render() {
+			const { navigate } = this.props.navigation;
 		return (
 			this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
 				<View >
 				// style={styles.listContainer}>
 					<SGListView
 						dataSource={this.state.dataSource}
-						renderRow={this.renderCards}
+						renderRow={(item) => this.renderCards(item,navigate)}
+						// renderRow={this.renderCards}
 						pageSize={10}
 						stickyHeaderIndices={[]}
 						onEndReachedThreshold={1}
@@ -87,11 +127,12 @@ export default class NewsFeed extends Component {
 
 
 
-	renderCards(stories) {
+	renderCards(stories,navigate) {
+		// console.log("Nav is " + navigate);
 		return (
 			<Container>
 			 <Content>
-				 <Card>
+				 // <Card >
 					 <CardItem>
 						 <Left>
 							 <Thumbnail source={{uri:"../images/logo_1.png"}} />
@@ -105,21 +146,20 @@ export default class NewsFeed extends Component {
 						 <Image source={{uri: "../images/logo_1.png"}} style={{height: 200, width: null, flex: 1}}/>
 					 </CardItem>
 					 <CardItem>
-						 <Left>
-							 <Button transparent>
-								 <Icon active name="thumbs-up" />
-								 <Text>12 Likes</Text>
-							 </Button>
-						 </Left>
-						 <Body>
-							 <Button transparent>
-								 <Icon active name="chatbubbles" />
-								 <Text>4 Comments</Text>
-							 </Button>
-						 </Body>
 						 <Right>
-							 <Text>11h ago</Text>
+							 <Button transparent onPress={()=> navigate('Video')}>
+							 		<Text>Watch Now</Text>
+							 </Button>
 						 </Right>
+						 // <Body>
+							//  <Button transparent>
+							// 	 <Icon active name="chatbubbles" />
+							// 	 <Text>4 Comments</Text>
+							//  </Button>
+						 // </Body>
+						 // <Right>
+							//  <Text>11h ago</Text>
+						 // </Right>
 					 </CardItem>
 				 </Card>
 			 </Content>

@@ -26,6 +26,7 @@
     "react-native-router-flux": "^3.37.0",
     "react-native-sglistview": "^0.4.5",
     "react-navigation": "^1.0.0-beta.27",
-    "native-base": "^2.4.1"
+    "native-base": "^2.4.1",
+    "react-native-video": "^2.0.0"
   }
 }

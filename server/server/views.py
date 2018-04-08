@@ -36,11 +36,17 @@ def broadcast(request):
 
 	client = Client(account_sid, auth_token)
 
+	artist = Artist.Objects.get(id=request.POST.get("artist_id"))
 
-	message = client.messages.create(
-	    to="", 
-	    from_=os.getenv("twilioFromPhoneNumber"),
-	    body="Hello from Python!")
+	if artist:
+		
+		subscribers = artist.subscribers
 
-	print(message.sid)
+		for subscriber in subscribers:
+			message = client.messages.create(
+			    to=subscriber.phone_num, 
+			    from_=os.getenv("twilioFromPhoneNumber"),
+			    body=request.POST.get("message"))
+
+	return JsonResponse({})
 

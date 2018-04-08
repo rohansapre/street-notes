@@ -1,1 +1,3 @@
 app
+*.pyc
+db.sqlite3

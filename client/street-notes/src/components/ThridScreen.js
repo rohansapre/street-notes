@@ -8,7 +8,6 @@ import {
   Animated,
   Easing,
   Text,
-  Button
 } from 'react-native';
 import {Actions, ActionConst} from 'react-native-router-flux';
 import { StackNavigator } from 'react-navigation';
@@ -16,9 +15,8 @@ import { StackNavigator } from 'react-navigation';
 
 import arrowImg from '../images/left-arrow.png';
 
-const SIZE = 40;
 
-export default class SecondScreen extends Component {
+export default class ThirdScreen extends Component {
   // constructor() {
   //   super();
   //
@@ -54,14 +52,8 @@ export default class SecondScreen extends Component {
     // });
 
     return (
-      <View>
-      <Text >LOGIN</Text>
-      <Button
-      title='testttt'
-                     onPress={() =>
-                       this.props.navigation.navigate('Feed', {})
-                     }/>
-                     </View>
+      <Text >LOGIN - 2 </Text>
+
       // <View style={styles.container}>
       //   <TouchableOpacity
       //     onPress={this._onPress}
@@ -76,32 +68,3 @@ export default class SecondScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 20,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: SIZE,
-    height: SIZE,
-    borderRadius: 100,
-    zIndex: 99,
-    backgroundColor: '#2DD2CD',
-  },
-  circle: {
-    height: SIZE,
-    width: SIZE,
-    marginTop: -SIZE,
-    borderRadius: 100,
-    backgroundColor: '#2DD2CD',
-  },
-  image: {
-    width: 24,
-    height: 24,
-  },
-});

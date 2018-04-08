@@ -68,18 +68,18 @@ const DEVICE_HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    marginTop: 100,
     flex: 1,
     alignItems: 'center',
   },
   btnEye: {
-    position: 'absolute',
-    top: 55,
+    position: 'relative',
+    top: -15,
     right: 28,
   },
   iconEye: {
     width: 25,
     height: 25,
-    tintColor: 'rgba(0,0,0,0.2)',
+    tintColor: 'rgba(0,0,0,0.8)',
   },
 });

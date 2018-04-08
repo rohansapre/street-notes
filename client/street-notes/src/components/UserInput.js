@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
     width: DEVICE_WIDTH - 40,
     height: 40,
-    marginTop:50,
     marginHorizontal: 20,
     paddingLeft: 45,
     borderRadius: 20,

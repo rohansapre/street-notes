@@ -97,14 +97,14 @@ export default class ButtonSubmit extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top: -95,
+    top: -5,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F035E0',
+    backgroundColor: '#005377',
     height: MARGIN,
     borderRadius: 20,
     zIndex: 100,
@@ -114,11 +114,11 @@ const styles = StyleSheet.create({
     width: MARGIN,
     marginTop: -MARGIN,
     borderWidth: 1,
-    borderColor: '#F035E0',
+    borderColor: '#005377',
     borderRadius: 100,
     alignSelf: 'center',
     zIndex: 99,
-    backgroundColor: '#F035E0',
+    backgroundColor: '#005377',
   },
   text: {
     color: 'white',

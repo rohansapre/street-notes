@@ -78,14 +78,14 @@ const styles = StyleSheet.create({
     height: SIZE,
     borderRadius: 100,
     zIndex: 99,
-    backgroundColor: '#F035E0',
+    backgroundColor: '#005377',
   },
   circle: {
     height: SIZE,
     width: SIZE,
     marginTop: -SIZE,
     borderRadius: 100,
-    backgroundColor: '#F035E0',
+    backgroundColor: '#005377',
   },
   image: {
     width: 24,

@@ -4,12 +4,21 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+  	"net/url"
+  	"strings"
+  	"fmt"
+  	"os"
 
 	"github.com/gorilla/mux"
 	. "street-notes/server/config"
 )
 
 var config = Config{}
+
+type BroadcastRequest struct {
+	Artist_id string `bson:"artist_id" json:"artist_id"`
+	Message string `bson:"message" json:"message"`
+}
 
 // GET: Fetch a post
 func GetPost(w http.ResponseWriter, r *http.Request) {	
@@ -43,6 +52,52 @@ func Subscribe(w http.ResponseWriter, r *http.Request) {
 
 // POST: Artist broadcasts to subscribers
 func BroadcastMessage(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	var messageRequest BroadcastRequest
+		
+	if err := json.NewDecoder(r.Body).Decode(&messageRequest); err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
+		return
+	}
+
+	// TODO: Use artist id and fetch subscriber's phone number
+	subcriberPhoneNumbers := [1]string{"+11234567890"}
+
+	for i := 0; i < len(subcriberPhoneNumbers); i++ {
+		
+		// Set account keys & information
+		accountSid := os.Getenv("twilioSID")
+		authToken := os.Getenv("twilioAuthToken")
+		urlStr := "https://api.twilio.com/2010-04-01/Accounts/" + accountSid + "/Messages.json"
+
+		// Pack up the data for our message
+		msgData := url.Values{}
+		msgData.Set("To",subcriberPhoneNumbers[i])
+		msgData.Set("From",os.Getenv("twilioFromPhoneNumber"))
+		msgData.Set("Body",messageRequest.Message)
+		msgDataReader := *strings.NewReader(msgData.Encode())
+
+		// Create HTTP request client
+		client := &http.Client{}
+		req, _ := http.NewRequest("POST", urlStr, &msgDataReader)
+		req.SetBasicAuth(accountSid, authToken)
+		req.Header.Add("Accept", "application/json")
+		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+		// Make HTTP POST request and return message SID
+		resp, _ := client.Do(req)
+		if (resp.StatusCode >= 200 && resp.StatusCode < 300) {
+		var data map[string]interface{}
+		decoder := json.NewDecoder(resp.Body)
+		err := decoder.Decode(&data)
+		if (err == nil) {
+			fmt.Println(data["sid"])
+		}
+		} else {
+			fmt.Println(resp.Status);
+		}
+	}
 	respondWithJson(w, http.StatusOK, r)
 }
 

@@ -1,5 +1,8 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from twilio.rest import Client
+import os
+from models import *
 
 
 def get_artist_profile(request, artist_id):
@@ -27,5 +30,16 @@ def post_handler(request, post_id=None):
 
 
 def broadcast(request):
-	return JsonResponse({})
+	account_sid = os.getenv("twilioSID")
+	auth_token  = os.getenv("twilioAuthToken")
+
+	client = Client(account_sid, auth_token)
+
+
+	message = client.messages.create(
+	    to="", 
+	    from_=os.getenv("twilioFromPhoneNumber"),
+	    body="Hello from Python!")
+
+	print(message.sid)
 

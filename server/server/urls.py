@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+import views
 
 urlpatterns = [
+    url(r'^$', views.get_news_feed, name="views.get_news_feed"),
     url(r'^admin/', admin.site.urls),
+    url(r'^artist/(?P<artist_id>\w+)/?$', views.get_artist_profile, name="views.get_artist_profile"),
+    url(r'^feed/?$', views.get_news_feed, name="views.get_news_feed"),
+    url(r'^donate/?$', views.donate, name="views.donate"),
+    url(r'^subscribe/?$', views.subscribe, name="views.subscribe"),
+    url(r'^post/?(?P<post_id>\w+)?/?$', views.post_handler, name="views.post_handler"),
+    url(r'^broadcast/?$', views.broadcast, name="views.broadcast"),
 ]
